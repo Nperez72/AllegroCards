@@ -41,7 +41,7 @@ public:
     int status_row = board_size - 1;
     int status_col = board_size - 1;
     // Delay shown when cards are flipped
-    double flip_delay = 5.0;
+    double flip_delay = 3.0;
 
     ConcentrationGame();
 
