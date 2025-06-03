@@ -1,4 +1,5 @@
 #include <vector>
+#include <allegro5/allegro_primitives.h>
 
 enum CardState {
     HIDDEN,    // Card is face down 
@@ -6,12 +7,26 @@ enum CardState {
     MATCHED    // Card has been matched and is no longer in play.
 };
 
-
-struct Card {
-    int shape_id;      // Identifier for the card's shape
-    CardState state;   // Current state of the card
+enum ShapeType {
+    SHAPE_CIRCLE,
+    SHAPE_SQUARE,
+    SHAPE_TRIANGLE,
+    SHAPE_RECTANGLE,
+    SHAPE_ELLIPSES,
+    SHAPE_DIAMOND,
+    SHAPE_CIRCLE_FILLED,
+    SHAPE_SQUARE_FILLED,
+    SHAPE_TRIANGLE_FILLED,
+    SHAPE_RECTANGLE_FILLED,
+    SHAPE_ELLIPSES_FILLED,
+    SHAPE_DIAMOND_FILLED,
+    SHAPE_NONE
 };
 
+struct Card {
+    ShapeType shape;  // Shape type of the card
+    CardState state;  // Current state of the card
+};
 
 struct FlipInfo {
     int row, col;         // Board coordinates of the flipped card.
@@ -46,8 +61,11 @@ public:
     // Returns the number of pairs remaining to be matched.
     int get_remaining_pairs() const;
 
+    // Draws a shape in the card cell at (x, y) using the global card_size
+    static void draw_shape(ShapeType shape, int x, int y, ALLEGRO_COLOR color, int card_size);
+
 private:
     std::vector<std::vector<Card>> board; // 2D board of cards.
     std::vector<FlipInfo> flipped;        // Currently flipped cards (max 2 at a time).
     int matched_pairs;                    // Number of pairs matched by the player.
-};#pragma once
+};
